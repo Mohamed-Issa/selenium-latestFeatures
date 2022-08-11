@@ -1,16 +1,21 @@
 package latestFeatures;
 
 import java.util.Set;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class NewWindow {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		System.setProperty("webdriver.chrome.driver", "./Drivers/chromedriver.exe");
 
@@ -38,8 +43,13 @@ public class NewWindow {
 		System.out.println(firstNameCourse);
 
 		driver.switchTo().window(parentWindowID);
+		
+		WebElement name = driver.findElement(By.cssSelector("[name='name']"));
 
-		driver.findElement(By.cssSelector("[name='name']")).sendKeys(firstNameCourse);
+		name.sendKeys(firstNameCourse);
+		File file = name.getScreenshotAs(OutputType.FILE);
+		
+		FileUtils.copyFile(file, new File("screen.png"));
 	}
 
 }
