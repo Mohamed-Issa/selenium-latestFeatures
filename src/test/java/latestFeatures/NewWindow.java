@@ -22,9 +22,8 @@ public class NewWindow {
 		WebDriver driver = new ChromeDriver();
 		driver.get("https://rahulshettyacademy.com/angularpractice");
 
-	//	driver.switchTo().newWindow(WindowType.TAB);
+		// driver.switchTo().newWindow(WindowType.TAB);
 		driver.switchTo().newWindow(WindowType.WINDOW);
-
 
 		Set<String> handles = driver.getWindowHandles();
 		Iterator<String> iterator = handles.iterator();
@@ -43,13 +42,19 @@ public class NewWindow {
 		System.out.println(firstNameCourse);
 
 		driver.switchTo().window(parentWindowID);
-		
+
 		WebElement name = driver.findElement(By.cssSelector("[name='name']"));
 
 		name.sendKeys(firstNameCourse);
 		File file = name.getScreenshotAs(OutputType.FILE);
-		
+
 		FileUtils.copyFile(file, new File("screen.png"));
+
+		int height = name.getRect().getDimension().getHeight();
+		System.out.println(height);
+
+		int width = name.getRect().getDimension().getWidth();
+		System.out.println(width);
 	}
 
 }
